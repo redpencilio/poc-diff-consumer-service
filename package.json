@@ -1,0 +1,21 @@
+{
+  "name": "poc-diff-consumer-service",
+  "version": "0.0.0",
+  "description": "Microservice to ingest diff files in the database",
+  "dependencies": {
+    "@lblod/mu-auth-sudo": "^0.2.0",
+    "cron": "^1.7.1",
+    "fs-extra": "^8.0.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redpencilio/poc-diff-consumer-service.git"
+  },
+  "author": "redpencil.io",
+  "license": "MIT"
+}
