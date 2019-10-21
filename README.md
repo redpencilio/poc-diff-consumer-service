@@ -2,7 +2,7 @@
 
 Consumer side of the PoC of data synchronization between 2 mu.semte.ch apps based on diff files. At regular intervals the consumer checks for new diff files and ingests the data found in the files.
 
-The endpoint from which diff files are retrieved can be configured through the `SYNC_BASE_URL` environment variable (default: 'http://172.17.0.1:81`).
+The endpoint from which diff files are retrieved can be configured through the `SYNC_BASE_URL` environment variable (default: `http://172.17.0.1:81`).
 
 See [app-poc-diff](http://github.com/redpencilio/app-poc-diff) for the complete PoC application.
 
