@@ -1,6 +1,6 @@
 {
   "name": "poc-diff-consumer-service",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Microservice to ingest diff files in the database",
   "dependencies": {
     "@lblod/mu-auth-sudo": "^0.2.0",
