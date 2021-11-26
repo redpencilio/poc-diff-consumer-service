@@ -1,19 +1,11 @@
-# poc-diff-consumer-service
+# consumer-service-graph-mirror
 
-See [app-poc-diff](http://github.com/redpencilio/app-poc-diff) for the complete PoC application.
+See [app-poc-diff](http://github.com/redpencilio/app-poc-diff) for the complete PoC application, espacially the producer for the corresponding delta-file api.
 
-Consumer side of the PoC of data synchronization between 2 mu.semte.ch apps based on diff files. At regular intervals the consumer checks for new diff files and ingests the data found in the files.
+Consumer side of the PoC of data synchronization between 2 mu.semte.ch apps based on diff files. At regular intervals the consumer checks for new diff files and ingests the data found in the files. This consumer ingests the triples in the same graphs as they where in on the producer.
 
-The endpoint from which diff files are retrieved can be configured through the `SYNC_BASE_URL` environment variable (default: `http://identifier`).
+## Environment variables
 
-## Tunnel
-The endpoint where diff files are retrieved is in *a different semantic.works stack*. This application is written to always pass requests through a [mu-tunnel](http://github.com/redpencilio/mu-tunnel) service to the remote stack to sync triples from that stack.
+* `SYNC_BASE_URL`: the endpoint from which diff files are retrieved (default: `http://identifier`)
+* `INGEST_INTERVAL_MS`: interval in milliseconds of the time between ingest operation starts (default: 5000)
 
-The local endpoint for the tunnel can be configured through the `TUNNEL_ENDPOINT` environment variable, which defaults to `http://tunnel/out`.
-
-**The identity of the remote stack** can be configured using the `TUNNEL_DEST_IDENTITY` environment variable, which defaults to `producer@redpencil.io`. This tells the tunnel which peer to forward the request to.
-
-## Known limitations
-* No pagination when quering the database for already consumed files (will become a problem if 10000 files have been consumed)
-* No authorization. All data is ingested in the same graph.
-* No batching during ingest. May reach the limitation of number of triples to be inserted/deleted in 1 query.

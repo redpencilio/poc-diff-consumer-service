@@ -1,19 +1,20 @@
-import requestPromise from 'request-promise';
+import fetch from "node-fetch";
 import { app, errorHandler } from 'mu';
-
+import express from "express";
 import { getNextSyncTask, getLatestSyncTask, insertNextSyncTask } from './lib/sync-task';
 import { getUnconsumedFiles } from './lib/delta-file';
 
 const INGEST_INTERVAL = process.env.INGEST_INTERVAL_MS || 5000;
 
-function triggerIngest() {
+async function triggerIngest() {
   console.log(`Consuming diff files at ${new Date().toISOString()}`);
-  requestPromise.post('http://localhost/ingest/');
+  await fetch("http://localhost/ingest/", { method: "POST" });
   setTimeout( triggerIngest, INGEST_INTERVAL );
 }
 
 triggerIngest();
 
+app.use("/ingest", express.json());
 app.post('/ingest', async function( req, res, next ) {
   const task = await getNextSyncTask();
   if (task) {
