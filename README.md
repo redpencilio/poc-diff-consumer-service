@@ -8,7 +8,8 @@ This consumer synchronises files too, but in a naive way. If file downloading fa
 
 ## Environment variables
 
-* `SYNC_BASE_URL`: the endpoint from which diff files are retrieved (default: `http://identifier`)
+* `SYNC_BASE_URL`: the hostname from which diff files are retrieved (default: `http://producer-identifier`)
 * `INGEST_INTERVAL_MS`: interval in milliseconds of the time between ingest operation starts (default: 5000)
-* `FILE_FOLDER`: this contains the path to the shared volume. This is not a way to configure the location of the files. In this naive file synchronisation mechanism, files will be written to the path described in the URI. This variable is used to check if files might get lost by putting them in other folder than the mounted volume. (optional, default: `/share/`)
+* `DOWNLOAD_SHARE_HOST`: the hostname for the download of uploaded files (default: `SYNC_BASE_URL` same as for the diff files)
+* `FILE_FOLDER`: this contains the path to the shared volume. This is not a way to configure the location of the files. In this naive file synchronisation mechanism, files will be written to the path described in the URI. This variable is used to check if files might get lost by putting them in other folder than the mounted volume. (default: `/share/`)
 
