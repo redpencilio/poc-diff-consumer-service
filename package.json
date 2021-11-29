@@ -1,14 +1,13 @@
 {
-  "name": "poc-diff-consumer-service",
+  "name": "consumer-mirror-graphs",
   "version": "0.0.2",
   "description": "Microservice to ingest diff files in the database",
+  "type": "module",
   "dependencies": {
     "@lblod/mu-auth-sudo": "^0.2.0",
     "fs-extra": "^8.0.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "node-fetch": "^2.6.6"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

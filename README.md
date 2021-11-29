@@ -1,19 +1,15 @@
-# poc-diff-consumer-service
+# consumer-service-graph-mirror with naive file synchronisation
 
-See [app-poc-diff](http://github.com/redpencilio/app-poc-diff) for the complete PoC application.
+See [app-poc-diff](http://github.com/redpencilio/app-poc-diff) for the complete PoC application, especially the producer for the corresponding delta-file api.
 
-Consumer side of the PoC of data synchronization between 2 mu.semte.ch apps based on diff files. At regular intervals the consumer checks for new diff files and ingests the data found in the files.
+Consumer side of the PoC of data synchronization between 2 mu.semte.ch apps based on diff files. At regular intervals the consumer checks for new diff files and ingests the data found in the files. This consumer ingests the triples in the same graphs as they where in on the producer.
 
-The endpoint from which diff files are retrieved can be configured through the `SYNC_BASE_URL` environment variable (default: `http://identifier`).
+This consumer synchronises files too, but in a naive way. If file downloading failes, the process continues and ignores the problems. Files are downloaded to a path equivalent to their original path, no remapping.
 
-## Tunnel
-The endpoint where diff files are retrieved is in *a different semantic.works stack*. This application is written to always pass requests through a [mu-tunnel](http://github.com/redpencilio/mu-tunnel) service to the remote stack to sync triples from that stack.
+## Environment variables
 
-The local endpoint for the tunnel can be configured through the `TUNNEL_ENDPOINT` environment variable, which defaults to `http://tunnel/out`.
+* `SYNC_BASE_URL`: the hostname from which diff files are retrieved (default: `http://producer-identifier`)
+* `INGEST_INTERVAL_MS`: interval in milliseconds of the time between ingest operation starts (default: 5000)
+* `DOWNLOAD_SHARE_HOST`: the hostname for the download of uploaded files (default: `SYNC_BASE_URL` same as for the diff files)
+* `FILE_FOLDER`: this contains the path to the shared volume. This is not a way to configure the location of the files. In this naive file synchronisation mechanism, files will be written to the path described in the URI. This variable is used to check if files might get lost by putting them in other folder than the mounted volume. (default: `/share/`)
 
-**The identity of the remote stack** can be configured using the `TUNNEL_DEST_IDENTITY` environment variable, which defaults to `producer@redpencil.io`. This tells the tunnel which peer to forward the request to.
-
-## Known limitations
-* No pagination when quering the database for already consumed files (will become a problem if 10000 files have been consumed)
-* No authorization. All data is ingested in the same graph.
-* No batching during ingest. May reach the limitation of number of triples to be inserted/deleted in 1 query.
